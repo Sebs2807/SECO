@@ -1,3 +1,5 @@
 django==5.0.6
 gunicorn==21.2.0
 whitenoise==6.7.0
+djangorestframework
+psycopg2-binary
