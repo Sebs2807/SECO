@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="hero">
+    <h2>Facturas</h2>
+    <p class="muted">Crea facturas de tipo <strong>COBRO</strong> o <strong>PAGO</strong>.</p>
+  </section>
+
+  <section class="panel">
+    <h3>Crear factura</h3>
+    <form id="factura-form">
+      <div class="form-row">
+        <label>Numero:</label>
+        <input type="text" name="numero_factura" required />
+
+        <label>Cliente:</label>
+        <select name="cliente" id="cliente-select" required>
+          <option value="">Cargando clientes...</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Fecha emisión:</label>
+        <input type="date" name="fecha_emision" required />
+
+        <label>Monto:</label>
+        <input type="number" step="0.01" name="monto" required />
+      </div>
+
+      <div class="form-row">
+        <label>Moneda:</label>
+        <input type="text" name="moneda" value="USD" required />
+
+        <label>Tipo:</label>
+        <select name="tipo">
+          <option value="COBRO">Cobro</option>
+          <option value="PAGO">Pago</option>
+        </select>
+      </div>
+
+      <div style="margin-top:12px">
+        <button type="submit">Crear factura</button>
+        <span id="form-msg" class="muted" style="margin-left:12px"></span>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>Listado de facturas</h3>
+    <div class="form-row" style="margin-bottom:10px">
+      <label style="margin-right:8px">Filtrar por cliente:</label>
+      <select id="filter-cliente" style="min-width:240px">
+        <option value="">Todos los clientes</option>
+      </select>
+      <button id="filter-reset" type="button" style="margin-left:8px">Limpiar filtro</button>
+    </div>
+    <div id="facturas-list">Cargando facturas...</div>
+  </section>
+
+  <script src="{% static 'core/facturas.js' %}?v=2"></script>
+{% endblock %}

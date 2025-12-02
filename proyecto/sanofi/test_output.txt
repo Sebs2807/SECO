@@ -1,0 +1,19 @@
+﻿Starting Reconciliation Test...
+Client created: Test Client, Saldo: 0
+Created COBRO C001: 100. State: OPEN, Saldo Pendiente: 0
+Client Saldo after C001: -100.00 (Expected -100)
+Created PAGO P001: 50. State: OPEN
+After P001 (50):
+  C001 State: OPEN, Saldo Pendiente: 0.00 (Expected 50)
+  P001 State: CLOSED, Saldo Pendiente: 0.00 (Expected 0 -> CLOSED)
+  Client Saldo: -50.00 (Expected -50)
+After P002 (60):
+  C001 State: OPEN, Saldo Pendiente: 0.00 (Expected 0 -> CLOSED)
+  P002 State: CLOSED, Saldo Pendiente: 0.00 (Expected 10)
+  Client Saldo: 10.00 (Expected 10)
+After C002 (10):
+  C002 State: OPEN, Saldo Pendiente: 0.00 (Expected 0 if auto-reconciled, else 10)
+  P002 State: CLOSED, Saldo Pendiente: 0.00 (Expected 0 if auto-reconciled, else 10)
+  -> Not auto-reconciled on COBRO creation. Triggering manually...
+  C002 State: OPEN, Saldo Pendiente: 0.00
+  P002 State: CLOSED, Saldo Pendiente: 0.00

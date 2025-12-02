@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="hero">
+    <h2>Gráficas de estado de facturas</h2>
+    <p class="muted">Visualiza cuántas facturas abiertas por cliente están en los rangos de tiempo configurables. Por defecto: 0-60s, 60-120s, 120-180s.</p>
+  </section>
+
+  <section class="panel">
+    <h3>Configuración de rangos (segundos)</h3>
+    <form id="bucket-form" class="form-inline">
+      <div class="form-row">
+        <label>B1:</label>
+        <input type="number" id="b1_start" value="0" min="0" />
+        <span class="muted">a</span>
+        <input type="number" id="b1_end" value="60" min="1" />
+      </div>
+      <div class="form-row">
+        <label>B2:</label>
+        <input type="number" id="b2_start" value="60" min="0" />
+        <span class="muted">a</span>
+        <input type="number" id="b2_end" value="120" min="1" />
+      </div>
+      <div class="form-row">
+        <label>B3:</label>
+        <input type="number" id="b3_start" value="120" min="0" />
+        <span class="muted">a</span>
+        <input type="number" id="b3_end" value="180" min="1" />
+      </div>
+      <div style="margin-top:12px">
+        <button type="submit">Actualizar</button>
+        <button type="button" id="reset-btn" class="secondary">Reset</button>
+        <span id="conf-msg" class="muted" style="margin-left:12px"></span>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>Gráfica</h3>
+    <canvas id="estadoChart" height="120"></canvas>
+    <div id="chart-msg" class="muted" style="margin-top:8px"></div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="{% static 'core/charts.js' %}"></script>
+{% endblock %}

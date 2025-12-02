@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section class="hero">
+  <h2>Dashboard</h2>
+</section>
+
+<section id="clientes" class="panel">
+  <h3>Crear cliente</h3>
+
+  <form id="cliente-form" action="/api/clientes/" method="post" class="form-grid">
+    {% csrf_token %}
+
+    <div class="field">
+      <label for="cliente-nombre">Nombre del cliente</label>
+      <input type="text" id="cliente-nombre" name="nombre" placeholder="Ej: Cruz Verde" required />
+    </div>
+
+    <div class="field">
+      <label for="cliente-nit">NIT</label>
+      <input type="text" id="cliente-nit" name="nit" placeholder="Ej: 900123456" />
+    </div>
+
+    <div class="field">
+      <label for="cliente-direccion">Dirección</label>
+      <input type="text" id="cliente-direccion" name="direccion" placeholder="Calle 123 #45-67" />
+    </div>
+
+    <div class="field">
+      <label for="cliente-correo">Correo</label>
+      <input type="email" id="cliente-correo" name="correo" placeholder="contacto@empresa.com" />
+    </div>
+
+    <div class="field">
+      <label for="cliente-telefono">Teléfono</label>
+      <input type="text" id="cliente-telefono" name="telefono" placeholder="Ej: +57 300 123 4567" />
+    </div>
+
+    <div class="field">
+      <label for="cliente-pais">País</label>
+      <select id="cliente-pais" name="pais">
+        <option value="">Seleccione país (opcional)</option>
+        <option value="Colombia">Colombia</option>
+        <option value="México">México</option>
+        <option value="Perú">Perú</option>
+        <option value="Chile">Chile</option>
+        <option value="Argentina">Argentina</option>
+        <option value="Estados Unidos">Estados Unidos</option>
+        <option value="España">España</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="cliente-ciudad">Ciudad</label>
+      <select id="cliente-ciudad" name="ciudad">
+        <option value="">Seleccione ciudad (opcional)</option>
+        <option value="Bogotá">Bogotá</option>
+        <option value="Medellín">Medellín</option>
+        <option value="Cali">Cali</option>
+        <option value="Ciudad de México">Ciudad de México</option>
+        <option value="Lima">Lima</option>
+        <option value="Santiago">Santiago</option>
+        <option value="Buenos Aires">Buenos Aires</option>
+        <option value="Madrid">Madrid</option>
+        <option value="Miami">Miami</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="cliente-saldo">Saldo inicial</label>
+      <input type="number" step="0.01" id="cliente-saldo" name="saldo" placeholder="Ej: 0.00" />
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Crear cliente</button>
+      <span id="cliente-msg" class="muted"></span>
+    </div>
+  </form>
+</section>
+
+<section class="panel">
+  <h3>Clientes</h3>
+  <div style="margin-bottom:10px">
+    <button id="refresh-btn" class="btn-primary" type="button">Refrescar lista</button>
+  </div>
+  <div id="clientes-list">Cargando clientes...</div>
+  <small class="muted">Se muestran nombre, NIT, datos de contacto y saldo.</small>
+</section>
+{% endblock %}
