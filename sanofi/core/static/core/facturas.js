@@ -37,20 +37,25 @@ document.addEventListener("DOMContentLoaded", function () {
 			const res = await fetch(url);
 			if (!res.ok) throw new Error("Error al cargar facturas");
 			const data = await res.json();
-			if (!Array.isArray(data) || data.length === 0) {
-				facturasList.textContent = "No hay facturas.";
+
+			// 🔥 FILTRAR: Solo facturas abiertas
+			const abiertas = data.filter((f) => f.estado === "OPEN");
+
+			if (!Array.isArray(abiertas) || abiertas.length === 0) {
+				facturasList.textContent = "No hay facturas abiertas.";
 				return;
 			}
+
 			facturasList.innerHTML = "";
-			data.forEach((f) => {
+			abiertas.forEach((f) => {
 				const d = document.createElement("div");
 				d.className = "factura-item";
 				d.innerHTML = `<strong>${escapeHtml(
 					f.numero_factura
 				)}</strong> <span class="muted">(${escapeHtml(f.tipo)})</span>
-          <div>Cliente: ${escapeHtml(f.cliente)}</div>
-          <div>Monto: ${escapeHtml(f.monto)} ${escapeHtml(f.moneda)}</div>
-          <div class="muted">Estado: ${escapeHtml(f.estado)}</div>`;
+			<div>Cliente: ${escapeHtml(f.cliente)}</div>
+			<div>Monto: ${escapeHtml(f.monto)} ${escapeHtml(f.moneda)}</div>
+			<div class="muted">Estado: ${escapeHtml(f.estado)}</div>`;
 				facturasList.appendChild(d);
 			});
 		} catch (err) {
@@ -58,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				"Error cargando facturas: " + err.message;
 		}
 	}
+
 
 	function escapeHtml(unsafe) {
 		return String(unsafe)
